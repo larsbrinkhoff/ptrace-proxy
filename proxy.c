@@ -7,6 +7,7 @@ terms and conditions.
 
 #include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
 #include <string.h>
@@ -45,10 +46,14 @@ debugger_syscall (debugger_state *debugger)
       cancel = 1;
       debugger->handle_trace = debugger_cancelled_return;
       break;
+#ifdef __NR_waitpid
     case __NR_waitpid:
+#endif
     case __NR_wait4:
       proxy_wait (debugger,
+#ifdef __NR_waitpid
 		  syscall == __NR_waitpid ? WAIT_WAITPID :
+#endif
 		  syscall == __NR_wait4   ? WAIT_WAIT4 : -1,
 		  arg1, (int *)arg2, arg3, (void *)arg4);
       cancel = 1;

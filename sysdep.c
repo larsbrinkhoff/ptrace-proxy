@@ -6,6 +6,8 @@ terms and conditions.
 **********************************************************************/
 
 #include <stdio.h>
+#include <errno.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/ptrace.h>
@@ -20,6 +22,16 @@ terms and conditions.
 #  define REG_ARG3    (4 * 2)
 #  define REG_ARG4    (4 * 3)
 #  define REG_ARG5    (4 * 4)
+#endif
+#ifdef __x86_64__
+#  define REG_SYSCALL (8 * 10)	/* rax */
+#  define REG_RESULT  (8 * 10)	/* rax */
+#  define REG_ARG1    (8 * 14)	/* rdi */
+#  define REG_ARG2    (8 * 13)	/* rsi */
+#  define REG_ARG3    (8 * 12)	/* rdx */
+#  define REG_ARG4    (8 * 7)	/* r10 */
+#  define REG_ARG5    (8 * 9)	/* r8 */
+#  define REG_ARG6    (8 * 8)	/* r9 */
 #endif
 #ifdef arm
 #  define REG_SYSCALL (4 * 17)

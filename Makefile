@@ -1,5 +1,6 @@
 CC = gcc
 CFLAGS = -g -Wall
+LDFLAGS =
 
 OBJS = main.o proxy.o ptrace.o sysdep.o wait.o
 
@@ -9,6 +10,6 @@ clean:
 	rm -f *.o core child ptproxy
 
 ptproxy: $(OBJS)
-	gcc $(OBJS) -o ptproxy
+	$(CC) $(LDFLAGS) $(OBJS) -o ptproxy
 
 child: child.o
