@@ -1,0 +1,15 @@
+ptproxy proxies debugging calls.
+
+ptproxy spawns two children: a debugger and a program to be debugged.
+ptproxy catches debugging calls from the debugger and forwards them
+to the debugged program.  The results are passed back to the debugger.
+
+To run ptproxy, Linux version >= 2.3.22 is needed.
+
+A typical ptproxy session:
+
+start ./ptproxy
+[the child process prints its pid]
+[gdb starts]
+attach to the child
+debug at will
